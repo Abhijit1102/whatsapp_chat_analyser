@@ -1,0 +1,26 @@
+# Byte-compiled / optimized Python files
+*.pyc
+__pycache__/
+
+# Distribution / packaging
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+venv/
+env/
+.venv/
+.venv3/
+
+# IDE-specific files
+.idea/
+.vscode/
+*.sublime-*
+*.swp
+
+# Miscellaneous
+*.bak
+*.log
+*.sqlite3
