@@ -1,6 +1,46 @@
 import streamlit as st
 import preprocessor, helper
 import matplotlib.pyplot as plt
+import logging
+
+
+def fetch_stats(selected_user, df):
+    """
+    Fetches stats for the selected user or overall chat.
+
+    Args:
+        selected_user (str): The user to fetch stats for. If None, stats for overall chat will be fetched.
+        df (pd.DataFrame): The preprocessed dataset.
+
+    Returns:
+        tuple: A tuple of (number of messages, number of words, number of media messages, number of links).
+    """
+    logging.info("fetch_stats initiated")
+    try:
+        num_messages, words,  num_media_messages, num_links = helper.fetch_stats(selected_user,df)
+        return num_messages, words,  num_media_messages, num_links
+    except Exception as e:
+        logging.error(e)
+
+@st.cache_data(max_entries=1000)
+def get_stats(selected_user, df):
+    """
+    Fetches stats for the selected user or overall chat.
+
+    Args:
+        selected_user (str): The user to fetch stats for. If None, stats for overall chat will be fetched.
+        df (pd.DataFrame): The preprocessed dataset.
+
+    Returns:
+        tuple: A tuple of (number of messages, number of words, number of media messages, number of links).
+    """
+    logging.info("get_stats initiated")
+    try:
+        return fetch_stats(selected_user, df)
+    except Exception as e:
+        logging.error(e)
+        st.error(e, show_traceback=True)
+
 
 st.sidebar.title("Whatsapp Chat anlyser")
 
@@ -27,7 +67,7 @@ if uploaded_file is not None:
     if st.sidebar.button("show analysis"):
 
 
-        num_messages, words,  num_media_messages, num_links = helper.fetch_stats(selected_user,df)
+        num_messages, words,  num_media_messages, num_links = get_stats(selected_user,df)
         
         col1, col2, col3, col4 = st.columns(4)
         
@@ -68,6 +108,3 @@ if uploaded_file is not None:
         fig, ax = plt.subplots()
         plt.imshow(df_wc)
         st.pyplot(fig)
-
-
-

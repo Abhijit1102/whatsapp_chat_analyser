@@ -18,7 +18,7 @@ To run the WhatsApp chat analyzer locally, follow the steps below:
 
 5. Access the app in your browser at http://localhost:8501.
 
-<img src="image.png" >
+<img src="image.png">
 
 # Usage
 1. Choose a WhatsApp chat export file using the file uploader in the sidebar.
